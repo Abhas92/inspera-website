@@ -1632,6 +1632,13 @@ section {
 }
 @media (max-width: 768px) {
   section { padding: 72px 0; }
+  /* Nav always has solid background on mobile — no scroll bleed */
+  .nav {
+    background: rgba(253, 252, 254, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 12px 0;
+  }
   .nav-links { display: none; }
   .nav-mobile-toggle { display: flex; }
   .nav-links.open {
@@ -1642,14 +1649,24 @@ section {
     left: 0;
     right: 0;
     background: var(--white);
-    padding: 24px;
+    padding: 16px 24px 24px;
     border-bottom: 1px solid var(--surface);
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    gap: 4px;
+    gap: 0;
   }
+  .nav-links.open li { list-style: none; }
   .nav-links.open a {
-    padding: 12px 0;
+    display: block;
+    padding: 14px 0;
     font-size: 16px;
+    border-bottom: 1px solid var(--surface);
+  }
+  .nav-links.open li:last-child a {
+    border-bottom: none;
+    margin-top: 8px;
+    padding: 14px 24px;
+    text-align: center;
+    border-radius: var(--r-md);
   }
   .hero { padding: 120px 0 60px; }
   .hero-content { text-align: center; }
@@ -1661,20 +1678,14 @@ section {
   .how-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   .how-grid::before { display: none; }
   .proof-stats { gap: 32px; }
-  /* Horizontal scroll pricing on mobile */
+  /* Stacked pricing on mobile — no horizontal scroll clip */
   .pricing-grid {
-    grid-template-columns: repeat(3, 280px);
-    max-width: 100%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 16px;
-    margin-left: -24px;
-    margin-right: -24px;
-    padding-left: 24px;
-    padding-right: 24px;
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .pricing-card { scroll-snap-align: center; }
+  .pricing-card { overflow: visible; }
   .comp-row { grid-template-columns: 2fr 1fr 1fr 1fr; font-size: 12px; }
   .comp-cell { padding: 10px 12px; font-size: 12px; }
   .cta-form { flex-direction: column; }
@@ -1700,7 +1711,7 @@ section {
   .hero-actions { flex-direction: column; }
   .hero-actions .btn-demo, .hero-actions .btn-outline { width: 100%; justify-content: center; }
   .how-grid { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: repeat(3, 260px); }
+  .pricing-grid { max-width: 100%; }
   .section-title { margin-bottom: 16px; }
   .section-desc { font-size: 15px; }
   .comp-row { grid-template-columns: 1.5fr 1fr 1fr 1fr; }
