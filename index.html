@@ -1506,6 +1506,116 @@ section {
 }
 .footer-bottom-links a:hover { color: rgba(255,255,255,0.7); }
 
+/* ─── MOBILE STAGGER ANIMATIONS ──────────────── */
+@media (max-width: 768px) {
+  .reveal { transform: translateY(40px) scale(0.96); }
+  .stagger-mobile > * {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .stagger-mobile.visible > *:nth-child(1) { transition-delay: 0s; }
+  .stagger-mobile.visible > *:nth-child(2) { transition-delay: 0.08s; }
+  .stagger-mobile.visible > *:nth-child(3) { transition-delay: 0.16s; }
+  .stagger-mobile.visible > *:nth-child(4) { transition-delay: 0.24s; }
+  .stagger-mobile.visible > *:nth-child(5) { transition-delay: 0.32s; }
+  .stagger-mobile.visible > *:nth-child(6) { transition-delay: 0.4s; }
+  .stagger-mobile.visible > * { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── HAMBURGER ANIMATION ────────────────────── */
+.nav-mobile-toggle.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.nav-mobile-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-mobile-toggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ─── MOBILE NAV OVERLAY ─────────────────────── */
+@media (max-width: 768px) {
+  .nav-links.open {
+    animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .nav-links.open li {
+    opacity: 0;
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .nav-links.open li:nth-child(1) { animation-delay: 0.05s; }
+  .nav-links.open li:nth-child(2) { animation-delay: 0.1s; }
+  .nav-links.open li:nth-child(3) { animation-delay: 0.15s; }
+  .nav-links.open li:nth-child(4) { animation-delay: 0.2s; }
+  .nav-links.open li:nth-child(5) { animation-delay: 0.25s; }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── STICKY MOBILE CTA BAR ─────────────────── */
+.mobile-sticky-cta {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 12px 20px;
+  background: rgba(253, 252, 254, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--surface);
+  box-shadow: 0 -4px 24px rgba(79, 55, 138, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mobile-sticky-cta.visible { transform: translateY(0); }
+.mobile-sticky-cta a {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--purple-mid);
+  color: var(--white);
+  text-align: center;
+  border-radius: var(--r-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 12px rgba(79, 55, 138, 0.3);
+}
+@media (max-width: 768px) {
+  .mobile-sticky-cta { display: block; }
+  body { padding-bottom: 72px; }
+}
+
+/* ─── FORM SUCCESS STATE ─────────────────────── */
+.cta-form-success {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: var(--r-md);
+  max-width: 460px;
+  margin: 0 auto;
+  animation: successPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cta-form-success.show { display: flex; }
+.cta-form-success svg { width: 24px; height: 24px; flex-shrink: 0; }
+.cta-form-success span { font-size: 15px; font-weight: 500; }
+@keyframes successPop {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
 /* ─── RESPONSIVE ──────────────────────────────── */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1518,7 +1628,7 @@ section {
   .hero-shapes { display: none; }
 }
 @media (max-width: 768px) {
-  section { padding: 80px 0; }
+  section { padding: 72px 0; }
   .nav-links { display: none; }
   .nav-mobile-toggle { display: flex; }
   .nav-links.open {
@@ -1532,27 +1642,67 @@ section {
     padding: 24px;
     border-bottom: 1px solid var(--surface);
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    gap: 4px;
+  }
+  .nav-links.open a {
+    padding: 12px 0;
+    font-size: 16px;
   }
   .hero { padding: 120px 0 60px; }
+  .hero-content { text-align: center; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-badge { margin-left: auto; margin-right: auto; }
   .problem-grid { grid-template-columns: repeat(2, 1fr); }
   .features-grid { grid-template-columns: 1fr; }
   .how-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
   .how-grid::before { display: none; }
   .proof-stats { gap: 32px; }
-  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  /* Horizontal scroll pricing on mobile */
+  .pricing-grid {
+    grid-template-columns: repeat(3, 280px);
+    max-width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .pricing-card { scroll-snap-align: center; }
   .comp-row { grid-template-columns: 2fr 1fr 1fr 1fr; font-size: 12px; }
   .comp-cell { padding: 10px 12px; font-size: 12px; }
   .cta-form { flex-direction: column; }
+  .cta-section { padding: 80px 0; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
   .mock-body { grid-template-columns: 1fr 1fr; }
+  /* Touch-friendly cards — no hover lift on mobile */
+  .feature-card:hover, .problem-card:hover, .pricing-card:hover {
+    transform: none;
+  }
+  .feature-card:active, .problem-card:active {
+    transform: scale(0.98);
+    transition-duration: 0.1s;
+  }
 }
 @media (max-width: 480px) {
+  section { padding: 56px 0; }
   .problem-grid { grid-template-columns: 1fr; }
   .proof-stats { flex-direction: column; align-items: center; gap: 24px; }
-  .hero h1 { font-size: 32px; }
+  .hero h1 { font-size: 32px; line-height: 1.15; }
+  .hero-sub { font-size: 15px; }
   .hero-actions { flex-direction: column; }
   .hero-actions .btn-demo, .hero-actions .btn-outline { width: 100%; justify-content: center; }
+  .how-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: repeat(3, 260px); }
+  .section-title { margin-bottom: 16px; }
+  .section-desc { font-size: 15px; }
+  .comp-row { grid-template-columns: 1.5fr 1fr 1fr 1fr; }
+  .comp-cell { padding: 8px 6px; font-size: 11px; }
+  .comp-cell:first-child { font-size: 12px; }
 }
 </style>
 </head>
@@ -2023,10 +2173,15 @@ section {
     <div class="cta-content reveal">
       <h2>Ready to run your firm smarter?</h2>
       <p>Book a personalized demo and see how Inspera's software + people model works for your firm.</p>
-      <form class="cta-form" onsubmit="event.preventDefault();">
-        <input type="email" class="cta-input" placeholder="Enter your work email" required>
+      <form class="cta-form" id="ctaForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="email" name="email" class="cta-input" placeholder="Enter your work email" required>
+        <input type="hidden" name="_subject" value="New Demo Request from Inspera Website">
         <button type="submit" class="cta-btn">Book Demo</button>
       </form>
+      <div class="cta-form-success" id="ctaSuccess">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span>We'll reach out within 24 hours!</span>
+      </div>
     </div>
   </div>
 </section>
@@ -2041,6 +2196,11 @@ section {
   </div>
 </footer>
 
+<!-- ═══════════ STICKY MOBILE CTA ═══════════ -->
+<div class="mobile-sticky-cta" id="mobileCta">
+  <a href="#cta">Book a Free Demo</a>
+</div>
+
 <script>
 // ─── Scroll-triggered Nav ───
 const nav = document.getElementById('nav');
@@ -2048,14 +2208,18 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
-// ─── Mobile Menu ───
+// ─── Mobile Menu (animated hamburger) ───
 const mobileToggle = document.getElementById('mobileToggle');
 const navLinks = document.getElementById('navLinks');
 mobileToggle.addEventListener('click', () => {
   navLinks.classList.toggle('open');
+  mobileToggle.classList.toggle('open');
 });
 navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => navLinks.classList.remove('open'));
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    mobileToggle.classList.remove('open');
+  });
 });
 
 // ─── Reveal on Scroll ───
@@ -2138,6 +2302,55 @@ window.addEventListener('scroll', () => {
     shape.style.transform = `translateY(${scrolled * speed}px)`;
   });
 }, { passive: true });
+
+// ─── Sticky Mobile CTA (show after scrolling past hero) ───
+const mobileCta = document.getElementById('mobileCta');
+const ctaSection = document.getElementById('cta');
+if (mobileCta) {
+  window.addEventListener('scroll', () => {
+    const heroBottom = document.querySelector('.hero').getBoundingClientRect().bottom;
+    const ctaTop = ctaSection ? ctaSection.getBoundingClientRect().top : Infinity;
+    const show = heroBottom < 0 && ctaTop > window.innerHeight;
+    mobileCta.classList.toggle('visible', show);
+  }, { passive: true });
+}
+
+// ─── Form Submission (Formspree with success state) ───
+const ctaForm = document.getElementById('ctaForm');
+const ctaSuccess = document.getElementById('ctaSuccess');
+if (ctaForm) {
+  ctaForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = ctaForm.querySelector('.cta-btn');
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const resp = await fetch(ctaForm.action, {
+        method: 'POST',
+        body: new FormData(ctaForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        ctaForm.style.display = 'none';
+        ctaSuccess.classList.add('show');
+      } else {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
+  });
+}
+
+// ─── Add stagger class to grids on mobile ───
+if (window.innerWidth <= 768) {
+  document.querySelectorAll('.problem-grid, .features-grid, .how-grid, .proof-stats').forEach(el => {
+    el.classList.add('stagger-mobile');
+  });
+}
 </script>
 
 </body>
